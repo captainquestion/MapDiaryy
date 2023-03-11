@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 import ImageViewer_swift
 
-class RegisterEditVC: UIViewController {
+class RegisterEditVC: UIViewController, UITextViewDelegate {
     
     var imageRecordArray: [UIImage] = []
     
@@ -30,9 +30,28 @@ class RegisterEditVC: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         title = titleText
+        descMessageText.delegate = self
         
         
     }
+    
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+
+    }
+    
+//    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+//        textView.resignFirstResponder()
+//        return true
+//    }
+//    
+//    func textFieldShouldReturn(_ textView: UITextView) -> Bool {
+//        textView.resignFirstResponder()
+//        return true
+//    }
+    
     
     func coreDataObjectFromImages(images: [UIImage]) -> Data? {
         let dataArray = NSMutableArray()
