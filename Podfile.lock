@@ -1,0 +1,20 @@
+PODS:
+  - ImageViewer.swift (3.3.8)
+  - SwipeCellKit (2.7.1)
+
+DEPENDENCIES:
+  - ImageViewer.swift (~> 3.0)
+  - SwipeCellKit
+
+SPEC REPOS:
+  trunk:
+    - ImageViewer.swift
+    - SwipeCellKit
+
+SPEC CHECKSUMS:
+  ImageViewer.swift: 284cd8127d31af8e5938674fb9f8e695a4cdf6c6
+  SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
+
+PODFILE CHECKSUM: eaab52ead016d87db12179e30f5ebd2eb895eba0
+
+COCOAPODS: 1.11.3

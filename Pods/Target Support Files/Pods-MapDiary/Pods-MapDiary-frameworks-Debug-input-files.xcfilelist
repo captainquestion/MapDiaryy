@@ -1,0 +1,3 @@
+${PODS_ROOT}/Target Support Files/Pods-MapDiary/Pods-MapDiary-frameworks.sh
+${BUILT_PRODUCTS_DIR}/ImageViewer.swift/ImageViewer_swift.framework
+${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework
