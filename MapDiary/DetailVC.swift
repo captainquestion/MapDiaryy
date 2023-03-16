@@ -17,24 +17,64 @@ class DetailVC: UIViewController {
     let modelView = ModelView()
 
     var imageArray = [UIImage]()
-    var descText = String()
 
+
+    @IBOutlet weak var mapButtonOutlet: UIBarButtonItem!
+    var currentIndex = Int()
     @IBOutlet weak var collectionView: UICollectionView!
    
     
     @IBOutlet weak var descTextView: UITextView!
     
+    var itemObject: Items?
+    
+    override func viewWillAppear(_ animated: Bool) {
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        modelView.loadItems()
         
-        descTextView.text = descText
+//        descTextView.text = descText
         collectionView.delegate = self
         collectionView.dataSource = self
         
-
-
+        if let itemObject = itemObject {
+            print("Clickedddddddd")
+            descTextView.text = itemObject.desc
+            title = itemObject.name
+            
+        }
+        
+        
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+
+        modelView.updateDesc(currentText: descTextView.text, currentIndex: currentIndex)
+
+        
+    }
+    
+//    func isMapEnabled(){
+//        if modelView.itemsArray[currentIndex].lat == 0.0{
+//            mapButtonOutlet.isEnabled = false
+//            mapButtonOutlet.customView?.alpha = 0.5
+//        }
+//    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destinationVC = segue.destination as? MapVC else {return}
+        if let itemObject = itemObject {
+            destinationVC.longituteV = itemObject.lon
+            destinationVC.latitudeV = itemObject.lat
+        }
+        
+    }
+    
+    
+    
     }
 
 
@@ -88,6 +128,9 @@ extension DetailVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+    
+    
+    
     
 //    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
 //

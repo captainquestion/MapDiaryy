@@ -14,4 +14,6 @@ class RecordCell: SwipeTableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     
+    
+    
 }

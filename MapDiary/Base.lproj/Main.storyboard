@@ -150,16 +150,59 @@
                             <constraint firstItem="8wx-1v-V8w" firstAttribute="leading" secondItem="7jB-nQ-XtA" secondAttribute="leading" constant="7" id="zgX-KJ-liP"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Mxj-dy-7oP"/>
+                    <navigationItem key="navigationItem" id="Mxj-dy-7oP">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="map" catalog="system" id="ZNC-4z-d2V">
+                            <connections>
+                                <segue destination="oAD-h7-Hx5" kind="show" identifier="goToMap" id="h8n-X5-PVl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="8wx-1v-V8w" id="fkk-11-JNZ"/>
                         <outlet property="descTextView" destination="VfQ-Os-8IR" id="awv-rQ-xrB"/>
+                        <outlet property="mapButtonOutlet" destination="ZNC-4z-d2V" id="wZ6-Qg-NHM"/>
                         <outlet property="pageController" destination="RnK-YM-55i" id="tMc-wi-5Qn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UAR-Fx-3vc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1690" y="717"/>
+        </scene>
+        <!--MapVC-->
+        <scene sceneID="XUq-LY-79i">
+            <objects>
+                <viewController id="oAD-h7-Hx5" customClass="MapVC" customModule="MapDiary" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hqO-p9-Uby">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="TDO-UC-uqF">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                            </mapView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="OCA-Xt-FkG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="OCA-Xt-FkG" firstAttribute="trailing" secondItem="TDO-UC-uqF" secondAttribute="trailing" id="Dfw-on-zrC"/>
+                            <constraint firstItem="OCA-Xt-FkG" firstAttribute="bottom" secondItem="TDO-UC-uqF" secondAttribute="bottom" id="H9s-ej-T5Q"/>
+                            <constraint firstItem="TDO-UC-uqF" firstAttribute="leading" secondItem="OCA-Xt-FkG" secondAttribute="leading" id="Xgo-uA-der"/>
+                            <constraint firstItem="TDO-UC-uqF" firstAttribute="top" secondItem="OCA-Xt-FkG" secondAttribute="top" id="cLY-bG-GZH"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="CE7-wE-GED">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="JiY-ml-nqX">
+                            <connections>
+                                <action selector="navigateToMap:" destination="oAD-h7-Hx5" id="44C-Ss-9ag"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="TDO-UC-uqF" id="7jy-68-LnC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="igP-tW-UYj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2573" y="719"/>
         </scene>
         <!--Register EditVC-->
         <scene sceneID="QWN-6r-kam">
@@ -280,6 +323,9 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="31" id="vNh-dw-kMk"/>
                                         </constraints>
+                                        <connections>
+                                            <action selector="locationSwitch:" destination="zoN-6j-Pk1" eventType="valueChanged" id="FGS-7H-i8k"/>
+                                        </connections>
                                     </switch>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -345,6 +391,7 @@
                     <connections>
                         <outlet property="collectionView" destination="jKN-r6-vbd" id="oWa-Rn-9ze"/>
                         <outlet property="descMessageText" destination="67c-ju-xD1" id="Ts0-2U-9kM"/>
+                        <outlet property="locationSwitchOutlet" destination="2aW-y9-Uas" id="bHQ-UD-h3A"/>
                         <outlet property="nameTextField" destination="jdX-fZ-I6n" id="VJl-nz-4tj"/>
                     </connections>
                 </viewController>
@@ -370,40 +417,11 @@
             </objects>
             <point key="canvasLocation" x="802.89855072463774" y="-4.0178571428571423"/>
         </scene>
-        <!--PhotoVC-->
-        <scene sceneID="rRF-By-vjx">
-            <objects>
-                <viewController id="Pin-Xz-Qfg" customClass="PhotoVC" customModule="MapDiary" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="fcF-gm-MNm">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hlT-sp-Nvl">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                            </imageView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="VgR-jx-WlJ"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="VgR-jx-WlJ" firstAttribute="bottom" secondItem="hlT-sp-Nvl" secondAttribute="bottom" id="0YS-iX-JBd"/>
-                            <constraint firstItem="hlT-sp-Nvl" firstAttribute="top" secondItem="VgR-jx-WlJ" secondAttribute="top" id="7mL-ES-gCZ"/>
-                            <constraint firstItem="hlT-sp-Nvl" firstAttribute="leading" secondItem="VgR-jx-WlJ" secondAttribute="leading" id="Kx4-bS-HXt"/>
-                            <constraint firstItem="VgR-jx-WlJ" firstAttribute="trailing" secondItem="hlT-sp-Nvl" secondAttribute="trailing" id="zkx-zf-yDa"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="DGT-tY-tvq"/>
-                    <connections>
-                        <outlet property="imageViewP" destination="hlT-sp-Nvl" id="hKg-Qw-OkK"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZfR-26-HIy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2584" y="706"/>
-        </scene>
     </scenes>
     <resources>
         <image name="delete" width="128" height="128"/>
-        <image name="xmark" catalog="system" width="128" height="113"/>
+        <image name="map" catalog="system" width="32" height="32"/>
+        <image name="xmark" catalog="system" width="32" height="32"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

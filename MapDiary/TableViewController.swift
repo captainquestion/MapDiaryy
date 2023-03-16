@@ -17,7 +17,7 @@ class TableViewController: SwipeTableVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//       print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+       print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
 
     }
     
@@ -25,6 +25,9 @@ class TableViewController: SwipeTableVC {
 //        loadItems()
         modelView.loadItems()
         tableView.reloadData()
+        title = "Keep It Up !"
+        
+        //tableView.rowHeight = UITableView.automaticDimension
     }
 
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -37,16 +40,8 @@ class TableViewController: SwipeTableVC {
    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       // performSegue(withIdentifier: "ToRegisterVC", sender: self)
-//        print(itemsArray[indexPath.row].name!)
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "MM/dd/YY"
-//        let a = dateFormatter.string(from: itemsArray[indexPath.row].date!)
-//
-//        print(a)
-        
-        performSegue(withIdentifier: "goToDetailVC", sender: self)
-        
+
+         performSegue(withIdentifier: "goToDetailVC", sender: self)
         
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -57,13 +52,7 @@ class TableViewController: SwipeTableVC {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-//        let cell = super.tableView(tableView, cellForRowAt: indexPath)
 
-        
-//        let records = modelView.itemsArray[indexPath.row]
-        //let imagesArray = imagesFromCoreData(object: records.images)!
-    
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
 
         return cell
@@ -72,24 +61,34 @@ class TableViewController: SwipeTableVC {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
-    
+
+//    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+//        editing
+//    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = tableView.indexPathForSelectedRow {
         
         
         if segue.identifier == "ToRegisterVC"{
             let destinationVC = segue.destination as! RegisterEditVC
-
-            
-            destinationVC.title = modelView.itemsArray[indexPath.row].name!
+           
+           
     
         }else if segue.identifier == "goToDetailVC"{
             let destinationVC = segue.destination as! DetailVC
             let records = modelView.itemsArray[indexPath.row]
             let imagesArray = modelView.imagesFromCoreData(object: records.images)!
             destinationVC.title = records.name!
+            //destinationVC.title = String(indexPath.row)
+            destinationVC.itemObject = records
+            destinationVC.currentIndex = indexPath.row
             destinationVC.imageArray = imagesArray
-            destinationVC.descText = records.desc!
+            //destinationVC.descText = records.desc!
+            
+            if records.lat == 0 {
+                destinationVC.mapButtonOutlet.isEnabled = false
+                destinationVC.mapButtonOutlet.customView?.alpha = 0.5
+            }
             
         }
             
