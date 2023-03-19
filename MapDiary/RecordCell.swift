@@ -6,9 +6,9 @@
 //
 
 import UIKit
-import SwipeCellKit
+//import SwipeCellKit
 
-class RecordCell: SwipeTableViewCell {
+class RecordCell: UITableViewCell {
 
     @IBOutlet weak var selectedPhotoImageView: UIImageView!
     

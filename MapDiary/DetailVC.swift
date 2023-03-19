@@ -46,6 +46,23 @@ class DetailVC: UIViewController {
             
         }
         
+        self.descTextView.layer.borderWidth = 1.0
+        self.descTextView.layer.borderColor = UIColor.systemGray.cgColor
+        self.descTextView.layer.cornerRadius = 5.0
+        
+        
+        
+        
+        
+    }
+    
+    func setupTextView(){
+        self.descTextView.toolbarPlaceholder = " SA"
+        self.descTextView.text = "Write your note here!"
+        self.descTextView.textColor = .lightGray
+        self.descTextView.layer.borderWidth = 1.0
+        self.descTextView.layer.borderColor = UIColor.systemGray.cgColor
+        self.descTextView.layer.cornerRadius = 5.0
         
     }
     
@@ -108,7 +125,7 @@ extension DetailVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellDetail", for: indexPath) as! DetailsImageCell
-        cell.slidableImageView.setupImageViewer(images: imageArray)
+        cell.slidableImageView.setupImageViewer(images: imageArray, initialIndex: indexPath.row)
         cell.slidableImageView.image = imageArray[indexPath.item]
         return cell
     }

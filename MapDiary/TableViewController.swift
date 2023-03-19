@@ -7,13 +7,12 @@
 
 import UIKit
 import CoreData
-import SwipeCellKit
+//import SwipeCellKit
 
 
-class TableViewController: SwipeTableVC {
+class TableViewController: UITableViewController {
     
-  
-
+    let modelView = ModelView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,15 +50,47 @@ class TableViewController: SwipeTableVC {
         return modelView.itemsArray.count
     }
     
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! RecordCell
+        let records = modelView.itemsArray[indexPath.row]
+        let imagesArray = modelView.imagesFromCoreData(object: records.images)!
+        let sizeCell = CGSize(width: cell.selectedPhotoImageView.frame.width, height: cell.selectedPhotoImageView.frame.height)
+        //UIGraphicsGetCurrentContext()?.interpolationQuality = . high
+
+//        let imagesResized = resizeImage(image: imagesArray[0], targetSize: sizeCell)
+        let imagesResizedExtention = imagesArray[0].resize(targetSize: sizeCell)
+       cell.selectedPhotoImageView.image = imagesResizedExtention
+    
+
+        cell.titleLabel.text = modelView.itemsArray[indexPath.row].name
+//        cell.delegate = self
+        
+//        return cell
+//        let cell = super.tableView(tableView, cellForRowAt: indexPath)
 
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") {  (action, Sourceview, completionHandler) in
+       
+            self.modelView.deleteItems(int: indexPath.row)
+            tableView.reloadData()
+            completionHandler(true)
+
+        }
+//        deleteAction.perform(nil, with: .)
+        deleteAction.image = UIImage(systemName: "delete.left.fill")
+        let swipeActions = UISwipeActionsConfiguration(actions: [deleteAction])
+//        swipeActions.perform
+        return swipeActions
     }
 
 //    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -69,13 +100,14 @@ class TableViewController: SwipeTableVC {
         if let indexPath = tableView.indexPathForSelectedRow {
         
         
-        if segue.identifier == "ToRegisterVC"{
-            let destinationVC = segue.destination as! RegisterEditVC
-           
-           
-    
-        }else if segue.identifier == "goToDetailVC"{
-            let destinationVC = segue.destination as! DetailVC
+//        if segue.identifier == "ToRegisterVC"{
+//            let destinationVC = segue.destination as! RegisterEditVC
+//
+//
+//
+//        }else
+        if segue.identifier == "goToDetailVC"{
+            lazy var destinationVC = segue.destination as! DetailVC
             let records = modelView.itemsArray[indexPath.row]
             let imagesArray = modelView.imagesFromCoreData(object: records.images)!
             destinationVC.title = records.name!
@@ -109,3 +141,13 @@ class TableViewController: SwipeTableVC {
     
 
 }
+//
+//extension UIImage {
+//
+//    func resize(targetSize: CGSize) -> UIImage {
+//        return UIGraphicsImageRenderer(size:targetSize).image { _ in
+//            self.draw(in: CGRect(origin: .zero, size: targetSize))
+//        }
+//    }
+//
+//}

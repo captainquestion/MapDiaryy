@@ -7,8 +7,9 @@ target 'MapDiary' do
 
   # Pods for MapDiary
 
-pod 'SwipeCellKit'
+
 pod 'ImageViewer.swift', '~> 3.0'
+pod 'IQKeyboardManagerSwift'
 
 
 end

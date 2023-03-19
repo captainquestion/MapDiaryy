@@ -9,8 +9,9 @@ import UIKit
 import CoreData
 import ImageViewer_swift
 import CoreLocation
-import UniformTypeIdentifiers
-import MobileCoreServices
+
+import AVFoundation
+import Photos
 
 
 class RegisterEditVC: UIViewController, UITextViewDelegate {
@@ -19,14 +20,15 @@ class RegisterEditVC: UIViewController, UITextViewDelegate {
     
     let modelView = ModelView()
     
-    let titleText = String()
+
     
-    var latitudeValue = Double()
+    private var latitudeValue = Double()
     
-    var longitudeValue = Double()
+    private var longitudeValue = Double()
         
     var locationManager = CLLocationManager()
     
+
     @IBOutlet weak var locationSwitchOutlet: UISwitch!
     
     @IBOutlet weak var nameTextField: UITextField!
@@ -42,63 +44,53 @@ class RegisterEditVC: UIViewController, UITextViewDelegate {
 
         collectionView.dataSource = self
         collectionView.delegate = self
-        title = titleText
-        descMessageText.delegate = self
-//        locationManager.delegate = self
-//        locationManager.requestAlwaysAuthorization()
-//        setupLocationManager()
+        
+        setupTextView()
         
     }
     
+
     
-    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.systemGray {
+            textView.text = ""
+            textView.textColor = UIColor.label
+            }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Write your note here!"
+            textView.textColor = UIColor.systemGray
+        }
+    }
+
+    func setupTextView(){
+        self.descMessageText.text = "Write your note here!"
+        self.descMessageText.textColor = UIColor.systemGray
+        self.descMessageText.layer.borderWidth = 1.0
+        self.descMessageText.layer.borderColor = UIColor.systemGray.cgColor
+        self.descMessageText.layer.cornerRadius = 5.0
+        self.descMessageText.delegate = self
+    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
 
     }
     
-//    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-//        textView.resignFirstResponder()
-//        return true
-//    }
-//    
-//    func textFieldShouldReturn(_ textView: UITextView) -> Bool {
-//        textView.resignFirstResponder()
-//        return true
-//    }
     
-    
-    func coreDataObjectFromImages(images: [UIImage]) -> Data? {
-        let dataArray = NSMutableArray()
-        
-        for img in images {
-            if let data = img.jpegData(compressionQuality: 1) {
-                dataArray.add(data)
-            }
-        }
-        
-        return try? NSKeyedArchiver.archivedData(withRootObject: dataArray, requiringSecureCoding: true)
-    }
     
 
     
     
     @IBAction func addImageButton(_ sender: Any) {
         pickerFunc()
-//        collectionView.reloadData()
-//        let imagePicker = UIImagePickerController()
-//        imagePicker.allowsEditing = true
-//        imagePicker.delegate = self
-//
-//
-//        present(imagePicker, animated: true)
 
         
     }
     
     @IBAction func locationSwitch(_ sender: UISwitch) {
         if sender.isOn{
-            locationManager.requestAlwaysAuthorization()
+            //locationManager.requestAlwaysAuthorization()
             checkLocationService()
             print("Latitude Value on On=, \(latitudeValue)")
 
@@ -114,18 +106,21 @@ class RegisterEditVC: UIViewController, UITextViewDelegate {
     }
     @IBAction func saveButton(_ sender: Any) {
 
+      insertDB()
+        
+        
+    }
+    
+    func insertDB(){
         let newItem = Items(context: modelView.context)
         newItem.name = nameTextField.text
         newItem.date = Date()
-        newItem.images = coreDataObjectFromImages(images: imageRecordArray)
+        newItem.images = modelView.coreDataObjectFromImages(images: imageRecordArray)
         newItem.desc = descMessageText.text
         newItem.lat = latitudeValue
         newItem.lon = longitudeValue
-        modelView.itemsArray.append(newItem)
         modelView.saveItems()
         navigationController?.popViewController(animated: true)
-        
-        
     }
 
     
@@ -139,22 +134,55 @@ class RegisterEditVC: UIViewController, UITextViewDelegate {
         let actionSheet = UIAlertController(title: "Photo source", message: "Choose a source", preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: {action in
-            //Source type is camera
             imagePicker.sourceType = .camera
-            self.present(imagePicker, animated: true, completion: nil)
+            //Source type is camera
+            //imagePicker.allowsEditing = true
+            let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
+
+            switch cameraAuthorizationStatus {
+            case .restricted, .denied, .notDetermined:
+                self.present(self.permissionAlert(), animated: true)
+                
+                
+            case .authorized:
+                self.present(imagePicker, animated: true,completion: nil)
+                
+            default:
+                
+                break
+            }
+
+           
         }))
-        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: {action in
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: {action in imagePicker.sourceType = .photoLibrary
            //Source type is library
-            imagePicker.sourceType = .photoLibrary
-            self.present(imagePicker, animated: true, completion: nil)
+            
+            let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+            switch photoAuthorizationStatus {
+            case .restricted,.denied, .notDetermined:
+                PHPhotoLibrary.requestAuthorization({
+                                (newStatus) in
+                                DispatchQueue.main.async {
+                                    if newStatus ==  PHAuthorizationStatus.authorized {
+                                        self.present(imagePicker, animated: true, completion: nil)
+                                    }else{
+                                        self.present(self.permissionAlert(), animated: true, completion: nil)
+                                    }
+                                }})
+            case .authorized, .limited:
+                self.present(imagePicker, animated: true, completion: nil)
+        
+        
+            default:
+                break
+            }
+
         }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {(action:UIAlertAction) in
            
             
             
         }))
-//        let a = view.bounds
-//        actionSheet.popoverPresentationController?.sourceRect = CGRectMake(<#T##x: CGFloat##CGFloat#>, <#T##y: CGFloat##CGFloat#>, <#T##width: CGFloat##CGFloat#>, <#T##height: CGFloat##CGFloat#>)
         
         if UIDevice.current.userInterfaceIdiom == .pad {
             
@@ -166,136 +194,39 @@ class RegisterEditVC: UIViewController, UITextViewDelegate {
         }
         
 
-//        actionSheet.popoverPresentationController?.sourceRect = view.bounds
-
         present(actionSheet, animated: true, completion: nil)
         
     }
     
 }
-//
-//extension URL {
-//
-//    /// Used for limiting memory usage when opening new photos from user's library.
-//    ///
-//    /// Photos could consume a lot of memory when loaded into `UIImage`s. A 2000 by 2000 photo
-//    /// roughly will consume 2000 x 2000 x 4 bytes = 16MB. A 10 000 by 10 000 photo will consume
-//    /// 10000 * 10000 * 4 = 400MB which is a lot, give that in your app
-//    /// you could pick up more than one photo (consider picking 10-15 photos)
-//    var asSmallImage: UIImage? {
-//
-//            let sourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
-//
-//            guard let source = CGImageSourceCreateWithURL(self as CFURL, sourceOptions) else { return nil }
-//
-//            let downsampleOptions = [
-//                kCGImageSourceCreateThumbnailFromImageAlways: true,
-//                kCGImageSourceCreateThumbnailWithTransform: true,
-//                kCGImageSourceThumbnailMaxPixelSize: 2_000,
-//            ] as CFDictionary
-//
-//            guard let cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, downsampleOptions) else { return nil }
-//
-//            let data = NSMutableData()
-//        guard let imageDestination = CGImageDestinationCreateWithData(data, UTTypeData, 1, nil) else { return nil }
-//
-//            // Don't compress PNGs, they're too pretty
-//            let destinationProperties = [kCGImageDestinationLossyCompressionQuality: cgImage.isPNG ? 1.0 : 0.75] as CFDictionary
-//            CGImageDestinationAddImage(imageDestination, cgImage, destinationProperties)
-//            CGImageDestinationFinalize(imageDestination)
-//
-//            let image = UIImage(data: data as Data)
-//            return image
-//    }
-//}
-//extension CGImage {
-//
-//    /// Gives info whether or not this `CGImage` represents a png image
-//    /// By observing its UT type.
-//    var isPNG: Bool {
-//        if #available(iOS 14.0, *) {
-//            return (utType as String?) == UTType.png.identifier
-//        } else {
-//            return utType == kUTTypePNG
-//        }
-//    }
-//}'
-// MARK: - Memory Optimized Image Loading
 
-extension URL {
-    
-    /// Used for limiting memory usage when opening new photos from user's library.
-    ///
-    /// Photos could consume a lot of memory when loaded into `UIImage`s. A 2000 by 2000 photo
-    /// roughly will consume 2000 x 2000 x 4 bytes = 16MB. A 10 000 by 10 000 photo will consume
-    /// 10000 * 10000 * 4 = 400MB which is a lot, give that in your app
-    /// you could pick up more than one photo (consider picking 10-15 photos)
-    var asSmallImage: UIImage? {
-        
-            let sourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
-            
-            guard let source = CGImageSourceCreateWithURL(self as CFURL, sourceOptions) else { return nil }
-            
-            let downsampleOptions = [
-                kCGImageSourceCreateThumbnailFromImageAlways: true,
-                kCGImageSourceCreateThumbnailWithTransform: true,
-                kCGImageSourceThumbnailMaxPixelSize: 2_000,
-            ] as CFDictionary
 
-            guard let cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, downsampleOptions) else { return nil }
 
-            let data = NSMutableData()
-        guard let imageDestination = CGImageDestinationCreateWithData(data, kUTTypePNG, 1, nil) else { return nil }
-            
-            // Don't compress PNGs, they're too pretty
-            let destinationProperties = [kCGImageDestinationLossyCompressionQuality: cgImage.isPNG ? 1.0 : 0.75] as CFDictionary
-            CGImageDestinationAddImage(imageDestination, cgImage, destinationProperties)
-            CGImageDestinationFinalize(imageDestination)
-            
-            let image = UIImage(data: data as Data)
-            return image
-    }
-}
 
-// MARK: - Helpers
-
-extension CGImage {
-    
-    /// Gives info whether or not this `CGImage` represents a png image
-    /// By observing its UT type.
-    var isPNG: Bool {
-        if #available(iOS 14.0, *) {
-            return (utType as String?) == UTType.png.identifier
-        } else {
-            return utType == kUTTypePNG
-        }
-    }
-}
 extension RegisterEditVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    
+    
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        
-        guard let url = info[.imageURL] as? URL else { return } // taking the result as `url` instead of uiimage
+       
 
+        
+        if (picker.sourceType == .camera){
+            let uiImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+            imageRecordArray.append(uiImage)
+        }else {
+            
+        
+        
+        guard let url = info[.imageURL] as? URL else { return }
                 if let image = url.asSmallImage {
                     imageRecordArray.append(image)
-                    collectionView.reloadData()
+                    
 
                 }
-//        guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {return }
-//        dismiss(animated: true)
-        
-//        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
-//            imageRecordArray.append(image)
-//            collectionView.reloadData()
-//            print(imageRecordArray.count)
-//
-//        }
-        
-//        guard let url = info[.imageURL] as? URL else { return}
-//
-//        if let image = url.asSmall
+        }
+        collectionView.reloadData()
         picker.dismiss(animated: true, completion: nil)
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -313,9 +244,9 @@ extension RegisterEditVC: UICollectionViewDataSource, UICollectionViewDelegate, 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "selectImageCell", for: indexPath) as! SelectedImageCell
-        cell.imageInTheCell.setupImageViewer(images: imageRecordArray)
+        cell.imageInTheCell.setupImageViewer(images: imageRecordArray, initialIndex: indexPath.item)
         cell.imageInTheCell.image = imageRecordArray[indexPath.row]
-        cell.delegate = self
+//        cell.delegate = self
         
         return cell
     }
@@ -343,23 +274,16 @@ extension RegisterEditVC: CLLocationManagerDelegate{
     
     func checkLocationService(){
         if CLLocationManager.locationServicesEnabled() == true{
-            //Setup location manager
-           print("PASSED TEST")
+            //Setup Location Manager
             setupLocationManager()
             checkLocationAuthorization()
          
-        }else {
-            print("DENIED TEST")
-//
-//            setupLocationManager()
-//            checkLocationAuthorization()
-            //
         }
         
     }
     
-    func locationDeniedAlert() -> UIAlertController{
-        let alertController = UIAlertController(title: "TITLE", message: "Please go to Settings and turn on the permissions", preferredStyle: .alert)
+    func permissionAlert() -> UIAlertController{
+        let alertController = UIAlertController(title: "Need Permission", message: "Please go to Settings and turn on the permissions", preferredStyle: .alert)
 
            let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
@@ -378,24 +302,19 @@ extension RegisterEditVC: CLLocationManagerDelegate{
     
     func checkLocationAuthorization() {
         switch locationManager.authorizationStatus {
-        case .authorizedWhenInUse:
+        case .authorizedWhenInUse, .authorizedAlways:
             locationManager.startUpdatingLocation()
-            break
-        
-        case .denied:
-            print("DENIED: DENIED")
-            self.present(locationDeniedAlert(), animated: true)
-            break
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-        case .restricted:
-            locationManager.requestWhenInUseAuthorization()
-            break
-        case .authorizedAlways:
-            locationManager.startUpdatingLocation()
-            break
+            
+            
+        case .denied, .notDetermined,.restricted:
+            locationSwitchOutlet.isOn = false
+
+            self.present(permissionAlert(), animated: true)
+            
+            
         default:
-            locationManager.requestWhenInUseAuthorization()
+            locationSwitchOutlet.isOn = false
+            self.present(permissionAlert(), animated: true)
             
         }
     }
@@ -405,17 +324,9 @@ extension RegisterEditVC: CLLocationManagerDelegate{
         
         latitudeValue = location.coordinate.latitude
         longitudeValue = location.coordinate.longitude
-        print("Final \(longitudeValue)")
         
     }
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .denied{
-            print("TESTING")
-            manager.requestLocation()
-        }
-        
-    }
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationAuthorization()
     }

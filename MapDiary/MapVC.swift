@@ -7,20 +7,23 @@
 
 import UIKit
 import MapKit
-import CoreLocation
+
 
 class MapVC: UIViewController {
     
     var modelView = ModelView()
     
     @IBOutlet weak var mapView: MKMapView!
-    var longituteV = Double()
-    var latitudeV = Double()
+    
+    lazy var longituteV = Double()
+    lazy var latitudeV = Double()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+//        mapView.delegate = self
      goToMap(lat: latitudeV, lon: longituteV)
+   
         
         
     }
@@ -38,8 +41,36 @@ class MapVC: UIViewController {
         //adding a annotation pin to the given region
         let pin = MKPointAnnotation()
         pin.coordinate = coordinate
+        pin.title = "Title"
+        pin.subtitle = "SubTitle"
         mapView.addAnnotation(pin)
     }
+    
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//        guard !(annotation is MKUserLocation) else {
+//            return nil
+//        }
+//
+//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "custom")
+//
+//        if annotationView == nil {
+//            //Create the view
+//
+//            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "custom")
+////            annotationView?.annotation = .
+//            annotationView?.canShowCallout = true
+//            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+//
+//        }else {
+//            annotationView?.annotation = annotation
+//        }
+//
+//
+//        annotationView?.image = UIImage(named: "mappin.circle.fill")
+//
+//
+//        return annotationView
+//    }
     
     
     func openMapButtonAction(latitude: Double, longitude: Double) {
@@ -76,22 +107,9 @@ class MapVC: UIViewController {
     @IBAction func navigateToMap(_ sender: UIBarButtonItem) {
         
         openMapButtonAction(latitude: latitudeV, longitude: longituteV)
-        
-//        var installedNavigationApps : [String] = ["Apple Maps"] // Apple Maps is always installed
-//
-////        Google Maps - NSURL(string:"comgooglemaps://")
-////        Waze - NSURL(string:"waze://")
-////        Navigon - NSURL(string:"navigon://")
-////        TomTom - NSURL(string:"tomtomhome://")
-//
-//
-//
-////        if (UIApplication.shared.canOpenURL(url: NSURL)) {
-////                self.installedNavigationApps.append(url)
-////        } else {
-////                // do nothing
-////        }
+
     }
-    
 
 }
+
+

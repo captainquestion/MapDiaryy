@@ -56,45 +56,7 @@ class ModelView {
         loadItems()
         itemsArray[currentIndex].desc = currentText
         saveItems()
-    
-//    func updateDesc(currentText: String, currentIndex: Int){
-//
-//        request.predicate = NSPredicate(format: "desc = %@", "abc")
-//
-//        request.setValue(currentText, forKey: "desc")
-//
-//        do {
-//
-//            try context.save()
-//        } catch {
-//            print("Error saving items \(error)")
-//        }
-        
-        //context.save()
-//
-//        if let fetchResults = appDel.managedObjectContext!.executeFetchRequest(request, error: nil) as? [NSManagedObject] {
-//                if fetchResults.count != 0{
-//
-//                    var managedObject = fetchResults[0]
-//                    managedObject.setValue(accessToken, forKey: "accessToken")
-//
-//                    context.save(nil)
-//                }
-//            }
 
-//        do {
-//            let newTask = NSEntityDescription.insertNewObject(forEntityName: "Items", into: context)
-//
-//
-//            newTask.setValue(currentText, forKey: "name")
-//
-//            do{
-//                try context.save()
-//                print("success")
-//            }catch{
-//                print("error")
-//            }
-//        }
     }
  
     
@@ -111,6 +73,18 @@ class ModelView {
         }
         
         return retVal
+    }
+    
+    func coreDataObjectFromImages(images: [UIImage]) -> Data? {
+        let dataArray = NSMutableArray()
+        
+        for img in images {
+            if let data = img.jpegData(compressionQuality: 1) {
+                dataArray.add(data)
+            }
+        }
+        
+        return try? NSKeyedArchiver.archivedData(withRootObject: dataArray, requiringSecureCoding: true)
     }
 }
 
