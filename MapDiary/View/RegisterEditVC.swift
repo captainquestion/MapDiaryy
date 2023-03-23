@@ -16,7 +16,7 @@ import Photos
 
 class RegisterEditVC: UIViewController, UITextViewDelegate {
     
-    var imageRecordArray: [UIImage] = []
+    private var imageRecordArray: [UIImage] = []
     
     let modelView = ModelView()
     
@@ -26,12 +26,21 @@ class RegisterEditVC: UIViewController, UITextViewDelegate {
     
     private var longitudeValue = Double()
         
-    var locationManager = CLLocationManager()
+    private var locationManager = CLLocationManager()
     
-
+    @IBOutlet weak var saveButtonOutlet: UIButton!
+    
     @IBOutlet weak var locationSwitchOutlet: UISwitch!
     
-    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var nameTextField: UITextField! {
+        didSet {
+            let redPlaceholderText = NSAttributedString(string: "Write your title name!",
+                                                        attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
+            
+            nameTextField.attributedPlaceholder = redPlaceholderText
+            
+        }
+    }
         
     @IBOutlet weak var descMessageText: UITextView!
 
@@ -41,11 +50,15 @@ class RegisterEditVC: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-
+        title = "Save Record"
+        
+       descMessageText.text = "Write your note!"
+       descMessageText.textColor = UIColor.systemGray
         collectionView.dataSource = self
         collectionView.delegate = self
+    
+        setupUI()
         
-        setupTextView()
         
     }
     
@@ -59,26 +72,83 @@ class RegisterEditVC: UIViewController, UITextViewDelegate {
     }
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "Write your note here!"
+            textView.text = "Write your note!"
             textView.textColor = UIColor.systemGray
         }
     }
-
-    func setupTextView(){
-        self.descMessageText.text = "Write your note here!"
-        self.descMessageText.textColor = UIColor.systemGray
-        self.descMessageText.layer.borderWidth = 1.0
-        self.descMessageText.layer.borderColor = UIColor.systemGray.cgColor
-        self.descMessageText.layer.cornerRadius = 5.0
-        self.descMessageText.delegate = self
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        setupUI()
     }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
 
+    func setupUI(){
+        descMessageText.delegate = self
+//        view.backgroundColor = .systemBlue
+        
+        let backgroundColor: UIColor
+        let navigationFontColor: UIColor
+        let backgroundCellColor: UIColor
+   
+         if traitCollection.userInterfaceStyle ==  .light{
+             backgroundColor = UIColor.getColors.lightModeBlueColor
+             backgroundCellColor = UIColor.getColors.lightModeCyanColor
+             navigationFontColor = UIColor.getColors.lightModeTextColor
+             
+         }else {
+             backgroundColor = UIColor.getColors.darkModeBlueColor
+             backgroundCellColor = UIColor.getColors.darkModeCyanColor
+             navigationFontColor = UIColor.getColors.darkModeTextColor
+         }
+     let attrs = [
+         NSAttributedString.Key.foregroundColor: navigationFontColor,
+         NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 22)
+         
+     ]
+     
+     navigationController?.navigationBar.titleTextAttributes = attrs
+ 
+     view.backgroundColor = backgroundColor
+     
+  
+        saveButtonOutlet.tintColor = UIColor.label
+     navigationController?.navigationBar.barTintColor = backgroundColor
+     navigationController?.navigationBar.tintColor = navigationFontColor
+        
+        locationSwitchOutlet.layer.cornerRadius = 16.0
+//        locationSwitchOutlet.layer.borderWidth = 1.0
+//        locationSwitchOutlet.layer.borderColor = UIColor.systemGray.cgColor
+//        locationSwitchOutlet.backgroundColor = backgroundCellColor
+        locationSwitchOutlet.backgroundColor = backgroundCellColor
+        locationSwitchOutlet.clipsToBounds = true
+   
+        
+        
+        collectionView.layer.cornerRadius = 5.0
+        collectionView.layer.borderWidth = 1.0
+        collectionView.layer.borderColor = UIColor.systemGray.cgColor
+
+        nameTextField.layer.cornerRadius = 5.0
+        nameTextField.layer.borderWidth = 1.0
+        nameTextField.layer.borderColor = UIColor.systemGray.cgColor
+//        nameTextField.textColor = UIColor.systemGray
+    
+        nameTextField.backgroundColor = backgroundCellColor
+        
+        saveButtonOutlet.layer.cornerRadius = 5.0
+        saveButtonOutlet.layer.borderWidth = 1.0
+        saveButtonOutlet.layer.borderColor = UIColor.systemGray.cgColor
+        saveButtonOutlet.backgroundColor = backgroundCellColor
+        saveButtonOutlet.titleLabel?.textColor = UIColor.label
+        
+       
+       descMessageText.layer.borderWidth = 1.0
+       descMessageText.layer.borderColor = UIColor.systemGray.cgColor
+       descMessageText.layer.cornerRadius = 5.0
+       descMessageText.backgroundColor = backgroundCellColor
+      
+        
+       
     }
-    
-    
-    
 
     
     
@@ -106,6 +176,7 @@ class RegisterEditVC: UIViewController, UITextViewDelegate {
     }
     @IBAction func saveButton(_ sender: Any) {
 
+      
       insertDB()
         
         
@@ -246,7 +317,7 @@ extension RegisterEditVC: UICollectionViewDataSource, UICollectionViewDelegate, 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "selectImageCell", for: indexPath) as! SelectedImageCell
         cell.imageInTheCell.setupImageViewer(images: imageRecordArray, initialIndex: indexPath.item)
         cell.imageInTheCell.image = imageRecordArray[indexPath.row]
-//        cell.delegate = self
+        cell.delegate = self
         
         return cell
     }
@@ -257,8 +328,9 @@ extension RegisterEditVC: UICollectionViewDataSource, UICollectionViewDelegate, 
 
 extension RegisterEditVC: PhotoCellDelegate {
     func delete(cell: SelectedImageCell) {
+ 
         if let indexPath = collectionView.indexPath(for: cell){
-            //delete the photo from datasource
+           
             imageRecordArray.remove(at: indexPath.item)
             collectionView.reloadData()
         }

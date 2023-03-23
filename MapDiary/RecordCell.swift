@@ -15,5 +15,8 @@ class RecordCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     
     
+    @IBOutlet weak var dateLabel: UILabel!
     
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var cellView: UIView!
 }

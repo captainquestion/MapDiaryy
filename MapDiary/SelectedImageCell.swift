@@ -19,8 +19,8 @@ class SelectedImageCell: UICollectionViewCell {
     weak var delegate: PhotoCellDelegate?
     
     
-    @IBAction func deleteButtonCell(_ sender: Any) {
-        
+    @IBAction func deleteButtonCell(_ sender: UIButton) {
+        print("Button Pressed !")
         delegate?.delete(cell: self)
     }
 }

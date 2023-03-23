@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 
 
-class MapVC: UIViewController {
+class MapVC: UIViewController, MKMapViewDelegate {
     
     var modelView = ModelView()
     
@@ -17,14 +17,50 @@ class MapVC: UIViewController {
     
     lazy var longituteV = Double()
     lazy var latitudeV = Double()
+    lazy var titleV = String()
+    let pin = MKPointAnnotation()
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        mapView.delegate = self
+        mapView.delegate = self
      goToMap(lat: latitudeV, lon: longituteV)
+        setupUI()
+//        view.backgroundColor = .systemBlue
    
         
+        
+    }
+    
+    func setupUI() {
+        let backgroundColor: UIColor
+        let navigationFontColor: UIColor
+        
+        if traitCollection.userInterfaceStyle ==  .light{
+            backgroundColor = UIColor.getColors.lightModeBlueColor
+            navigationFontColor = UIColor.getColors.lightModeTextColor
+        }else {
+            backgroundColor = UIColor.getColors.darkModeBlueColor
+            navigationFontColor = UIColor.getColors.darkModeTextColor
+        }
+        
+        let attrs = [
+            NSAttributedString.Key.foregroundColor: navigationFontColor,
+            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 22)
+        ]
+        
+        navigationController?.navigationBar.titleTextAttributes = attrs
+        navigationController?.navigationBar.tintColor = navigationFontColor
+        view.backgroundColor = backgroundColor
+        
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+//        super.traitCollectionDidChange(previousTraitCollection)
+        setupUI()
+    }
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        openMapButtonAction(latitude: latitudeV, longitude: longituteV)
         
     }
     
@@ -39,12 +75,17 @@ class MapVC: UIViewController {
         let region = MKCoordinateRegion(center: coordinate, span: span)
         mapView.setRegion(region, animated: true)
         //adding a annotation pin to the given region
-        let pin = MKPointAnnotation()
+        
         pin.coordinate = coordinate
-        pin.title = "Title"
-        pin.subtitle = "SubTitle"
+        
+        pin.title = titleV
+        pin.subtitle = "You were here!"
         mapView.addAnnotation(pin)
     }
+    
+
+    
+    
     
 //    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
 //        guard !(annotation is MKUserLocation) else {
@@ -72,7 +113,6 @@ class MapVC: UIViewController {
 //        return annotationView
 //    }
     
-    
     func openMapButtonAction(latitude: Double, longitude: Double) {
             
 
@@ -96,12 +136,18 @@ class MapVC: UIViewController {
             for app in installedNavigationApps {
                 let button = UIAlertAction(title: app.0, style: .default, handler: { _ in
                     UIApplication.shared.open(app.1, options: [:], completionHandler: nil)
+                    self.mapView.deselectAnnotation(self.pin, animated: true)
+
                 })
                 alert.addAction(button)
             }
-            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: {_ in
+                self.mapView.deselectAnnotation(self.pin, animated: true)
+            })
             alert.addAction(cancel)
+        
             present(alert, animated: true)
+            
         }
     
     @IBAction func navigateToMap(_ sender: UIBarButtonItem) {
@@ -109,7 +155,11 @@ class MapVC: UIViewController {
         openMapButtonAction(latitude: latitudeV, longitude: longituteV)
 
     }
+    
+    
 
 }
+
+
 
 

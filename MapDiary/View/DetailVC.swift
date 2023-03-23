@@ -10,7 +10,7 @@ import CoreData
 import ImageViewer_swift
 
 
-class DetailVC: UIViewController {
+class DetailVC: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var pageController: UIPageControl!
     
@@ -29,63 +29,134 @@ class DetailVC: UIViewController {
     var itemObject: Items?
     
     override func viewWillAppear(_ animated: Bool) {
+
+        
     }
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+//        overrideUserInterfaceStyle = ColorHelper.getSelectedAppearance()
+
         modelView.loadItems()
         
 //        descTextView.text = descText
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        if let itemObject = itemObject {
-            print("Clickedddddddd")
-            descTextView.text = itemObject.desc
-            title = itemObject.name
+//       setupUI()
+
+//        setUpNavBarTitle()
+        setupUI()
+//
+    }
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+
+        setupUI()
+    }
+    
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.systemGray {
+            textView.text = ""
+            textView.textColor = UIColor.label
+            }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        
+        if textView.text.isEmpty {
+            textView.text = "Write your note!"
+            textView.textColor = UIColor.systemGray
             
         }
+        modelView.updateDesc(currentText: descTextView.text, currentIndex: currentIndex)
+
+       
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+//        if descTextView.textColor == UIColor.systemGray {
+//            descTextView.text = "Write your note!"
+//        }
         
-        self.descTextView.layer.borderWidth = 1.0
-        self.descTextView.layer.borderColor = UIColor.systemGray.cgColor
-        self.descTextView.layer.cornerRadius = 5.0
+//        modelView.updateDesc(currentText: descTextView.text, currentIndex: currentIndex)
+
         
+    }
+    
+    func setupUI(){
+        descTextView.delegate = self
         
+        let backgroundColor: UIColor
+        let backgroundCellColor: UIColor
+        let navigationFontColor: UIColor
+   
+         if traitCollection.userInterfaceStyle ==  .light{
+             backgroundColor = UIColor.getColors.lightModeBlueColor
+             backgroundCellColor = UIColor.getColors.lightModeCyanColor
+             navigationFontColor = UIColor.getColors.lightModeTextColor
+
+             
+         }else {
+             backgroundColor = UIColor.getColors.darkModeBlueColor
+             backgroundCellColor = UIColor.getColors.darkModeCyanColor
+             navigationFontColor = UIColor.getColors.darkModeTextColor
+
+         }
+
         
+        if let selectedItem = itemObject {
+            descTextView.text = selectedItem.desc
+
+            if selectedItem.desc == "Write your note!"{
+                
+                descTextView.textColor = UIColor.systemGray
+                
+            }
+            
+            
+            title = selectedItem.name
+            
+        }
+
+//        view.backgroundColor = UIColor.systemBlue
+        let attrs = [
+            NSAttributedString.Key.foregroundColor: navigationFontColor,
+            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 22)
+        ]
+        
+        navigationController?.navigationBar.titleTextAttributes = attrs
+        navigationController?.navigationBar.tintColor = navigationFontColor
+        view.backgroundColor = backgroundColor
+        descTextView.layer.borderWidth = 1.0
+        descTextView.layer.borderColor = UIColor.systemGray.cgColor
+        descTextView.layer.cornerRadius = 5.0
+        descTextView.backgroundColor = backgroundCellColor
         
         
     }
     
-    func setupTextView(){
-        self.descTextView.toolbarPlaceholder = " SA"
-        self.descTextView.text = "Write your note here!"
-        self.descTextView.textColor = .lightGray
-        self.descTextView.layer.borderWidth = 1.0
-        self.descTextView.layer.borderColor = UIColor.systemGray.cgColor
-        self.descTextView.layer.cornerRadius = 5.0
-        
-    }
+    
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
 
-        modelView.updateDesc(currentText: descTextView.text, currentIndex: currentIndex)
 
         
     }
-    
-//    func isMapEnabled(){
-//        if modelView.itemsArray[currentIndex].lat == 0.0{
-//            mapButtonOutlet.isEnabled = false
-//            mapButtonOutlet.customView?.alpha = 0.5
-//        }
-//    }
-    
+
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destinationVC = segue.destination as? MapVC else {return}
         if let itemObject = itemObject {
             destinationVC.longituteV = itemObject.lon
             destinationVC.latitudeV = itemObject.lat
+          
+            destinationVC.titleV = itemObject.name!
+            destinationVC.title = itemObject.name!
+            
         }
         
     }

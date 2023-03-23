@@ -11,6 +11,7 @@
 		5E7BB83729B54A5600B1006F /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7BB83629B54A5600B1006F /* DetailVC.swift */; };
 		5E7BB83929B5610F00B1006F /* DetailsImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7BB83829B5610F00B1006F /* DetailsImageCell.swift */; };
 		5E7C607D29AFEA41008AA49B /* SelectedImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C607C29AFEA40008AA49B /* SelectedImageCell.swift */; };
+		5E92A46029CA759E00BADC38 /* ColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E92A45F29CA759E00BADC38 /* ColorHelper.swift */; };
 		5E9E560429B81F860094BDD7 /* SwipeTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9E560329B81F860094BDD7 /* SwipeTableVC.swift */; };
 		5E9E560629B82D9F0094BDD7 /* ModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9E560529B82D9F0094BDD7 /* ModelView.swift */; };
 		5E9FB2F129BD673D00AE4450 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9FB2F029BD673D00AE4450 /* MapVC.swift */; };
@@ -32,6 +33,7 @@
 		5E7BB83629B54A5600B1006F /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		5E7BB83829B5610F00B1006F /* DetailsImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsImageCell.swift; sourceTree = "<group>"; };
 		5E7C607C29AFEA40008AA49B /* SelectedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedImageCell.swift; sourceTree = "<group>"; };
+		5E92A45F29CA759E00BADC38 /* ColorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHelper.swift; sourceTree = "<group>"; };
 		5E9E560329B81F860094BDD7 /* SwipeTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableVC.swift; sourceTree = "<group>"; };
 		5E9E560529B82D9F0094BDD7 /* ModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelView.swift; sourceTree = "<group>"; };
 		5E9FB2F029BD673D00AE4450 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
@@ -79,6 +81,26 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		5E92A45D29CA752C00BADC38 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				5EA4B59029C68C3800B61302 /* Helper.swift */,
+				5E92A45F29CA759E00BADC38 /* ColorHelper.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		5E92A45E29CA754900BADC38 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5ED04B812996CBCD00457D1F /* TableViewController.swift */,
+				5E116E1E29AD7212008119D0 /* RegisterEditVC.swift */,
+				5E7BB83629B54A5600B1006F /* DetailVC.swift */,
+				5E9FB2F029BD673D00AE4450 /* MapVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		5ED04B712996CBCD00457D1F = {
 			isa = PBXGroup;
 			children = (
@@ -100,23 +122,20 @@
 		5ED04B7C2996CBCD00457D1F /* MapDiary */ = {
 			isa = PBXGroup;
 			children = (
+				5E92A45D29CA752C00BADC38 /* Helper */,
 				5ED04B7D2996CBCD00457D1F /* AppDelegate.swift */,
 				5ED04B7F2996CBCD00457D1F /* SceneDelegate.swift */,
-				5ED04B812996CBCD00457D1F /* TableViewController.swift */,
 				5ED04B832996CBCD00457D1F /* Main.storyboard */,
 				5ED04B892996CBD500457D1F /* Assets.xcassets */,
 				5ED04B8B2996CBD500457D1F /* LaunchScreen.storyboard */,
 				5ED04B8E2996CBD500457D1F /* Info.plist */,
 				5ED04B862996CBCD00457D1F /* MapDiary.xcdatamodeld */,
 				5EB3C8C929A45834006425AA /* RecordCell.swift */,
-				5E116E1E29AD7212008119D0 /* RegisterEditVC.swift */,
 				5E7C607C29AFEA40008AA49B /* SelectedImageCell.swift */,
-				5E7BB83629B54A5600B1006F /* DetailVC.swift */,
+				5E92A45E29CA754900BADC38 /* View */,
 				5E7BB83829B5610F00B1006F /* DetailsImageCell.swift */,
 				5E9E560329B81F860094BDD7 /* SwipeTableVC.swift */,
 				5E9E560529B82D9F0094BDD7 /* ModelView.swift */,
-				5E9FB2F029BD673D00AE4450 /* MapVC.swift */,
-				5EA4B59029C68C3800B61302 /* Helper.swift */,
 			);
 			path = MapDiary;
 			sourceTree = "<group>";
@@ -241,6 +260,7 @@
 				5ED04B822996CBCD00457D1F /* TableViewController.swift in Sources */,
 				5E9E560429B81F860094BDD7 /* SwipeTableVC.swift in Sources */,
 				5E7BB83929B5610F00B1006F /* DetailsImageCell.swift in Sources */,
+				5E92A46029CA759E00BADC38 /* ColorHelper.swift in Sources */,
 				5E116E1F29AD7212008119D0 /* RegisterEditVC.swift in Sources */,
 				5E9E560629B82D9F0094BDD7 /* ModelView.swift in Sources */,
 				5ED04B7E2996CBCD00457D1F /* AppDelegate.swift in Sources */,
