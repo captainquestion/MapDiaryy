@@ -8,14 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		5E116E1F29AD7212008119D0 /* RegisterEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E116E1E29AD7212008119D0 /* RegisterEditVC.swift */; };
+		5E18374529D25CDB00B94E8B /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E18374429D25CDB00B94E8B /* UIColorExtension.swift */; };
+		5E18374729D25D3000B94E8B /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E18374629D25D3000B94E8B /* UIImageExtension.swift */; };
+		5E18374929D25D6A00B94E8B /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E18374829D25D6A00B94E8B /* URLExtension.swift */; };
+		5E18374B29D25DB000B94E8B /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E18374A29D25DB000B94E8B /* CGImageExtension.swift */; };
 		5E7BB83729B54A5600B1006F /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7BB83629B54A5600B1006F /* DetailVC.swift */; };
 		5E7BB83929B5610F00B1006F /* DetailsImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7BB83829B5610F00B1006F /* DetailsImageCell.swift */; };
 		5E7C607D29AFEA41008AA49B /* SelectedImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C607C29AFEA40008AA49B /* SelectedImageCell.swift */; };
-		5E92A46029CA759E00BADC38 /* ColorHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E92A45F29CA759E00BADC38 /* ColorHelper.swift */; };
-		5E9E560429B81F860094BDD7 /* SwipeTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9E560329B81F860094BDD7 /* SwipeTableVC.swift */; };
 		5E9E560629B82D9F0094BDD7 /* ModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9E560529B82D9F0094BDD7 /* ModelView.swift */; };
 		5E9FB2F129BD673D00AE4450 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9FB2F029BD673D00AE4450 /* MapVC.swift */; };
-		5EA4B59129C68C3900B61302 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA4B59029C68C3800B61302 /* Helper.swift */; };
 		5EB3C8CA29A45834006425AA /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB3C8C929A45834006425AA /* RecordCell.swift */; };
 		5ED04B7E2996CBCD00457D1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED04B7D2996CBCD00457D1F /* AppDelegate.swift */; };
 		5ED04B802996CBCD00457D1F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED04B7F2996CBCD00457D1F /* SceneDelegate.swift */; };
@@ -30,14 +31,15 @@
 /* Begin PBXFileReference section */
 		38DD37EEB632367E35E817CC /* Pods_MapDiary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapDiary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E116E1E29AD7212008119D0 /* RegisterEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterEditVC.swift; sourceTree = "<group>"; };
+		5E18374429D25CDB00B94E8B /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		5E18374629D25D3000B94E8B /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		5E18374829D25D6A00B94E8B /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
+		5E18374A29D25DB000B94E8B /* CGImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGImageExtension.swift; sourceTree = "<group>"; };
 		5E7BB83629B54A5600B1006F /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		5E7BB83829B5610F00B1006F /* DetailsImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsImageCell.swift; sourceTree = "<group>"; };
 		5E7C607C29AFEA40008AA49B /* SelectedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedImageCell.swift; sourceTree = "<group>"; };
-		5E92A45F29CA759E00BADC38 /* ColorHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHelper.swift; sourceTree = "<group>"; };
-		5E9E560329B81F860094BDD7 /* SwipeTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableVC.swift; sourceTree = "<group>"; };
 		5E9E560529B82D9F0094BDD7 /* ModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelView.swift; sourceTree = "<group>"; };
 		5E9FB2F029BD673D00AE4450 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
-		5EA4B59029C68C3800B61302 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		5EB3C8C929A45834006425AA /* RecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCell.swift; sourceTree = "<group>"; };
 		5ED04B7A2996CBCD00457D1F /* MapDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ED04B7D2996CBCD00457D1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,16 +83,38 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		5E92A45D29CA752C00BADC38 /* Helper */ = {
+		5E18374C29D25DDC00B94E8B /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				5EA4B59029C68C3800B61302 /* Helper.swift */,
-				5E92A45F29CA759E00BADC38 /* ColorHelper.swift */,
+				5E18374429D25CDB00B94E8B /* UIColorExtension.swift */,
+				5E18374A29D25DB000B94E8B /* CGImageExtension.swift */,
+				5E18374629D25D3000B94E8B /* UIImageExtension.swift */,
+				5E18374829D25D6A00B94E8B /* URLExtension.swift */,
 			);
-			path = Helper;
+			name = Helper;
+			path = Helper/Helper;
 			sourceTree = "<group>";
 		};
-		5E92A45E29CA754900BADC38 /* View */ = {
+		5E18374F29D25E2D00B94E8B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5E9E560529B82D9F0094BDD7 /* ModelView.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5E18375029D25E4A00B94E8B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5EB3C8C929A45834006425AA /* RecordCell.swift */,
+				5E7C607C29AFEA40008AA49B /* SelectedImageCell.swift */,
+				5E7BB83829B5610F00B1006F /* DetailsImageCell.swift */,
+				5ED04B832996CBCD00457D1F /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5E92A45E29CA754900BADC38 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				5ED04B812996CBCD00457D1F /* TableViewController.swift */,
@@ -98,7 +122,7 @@
 				5E7BB83629B54A5600B1006F /* DetailVC.swift */,
 				5E9FB2F029BD673D00AE4450 /* MapVC.swift */,
 			);
-			path = View;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		5ED04B712996CBCD00457D1F = {
@@ -122,20 +146,16 @@
 		5ED04B7C2996CBCD00457D1F /* MapDiary */ = {
 			isa = PBXGroup;
 			children = (
-				5E92A45D29CA752C00BADC38 /* Helper */,
 				5ED04B7D2996CBCD00457D1F /* AppDelegate.swift */,
 				5ED04B7F2996CBCD00457D1F /* SceneDelegate.swift */,
-				5ED04B832996CBCD00457D1F /* Main.storyboard */,
 				5ED04B892996CBD500457D1F /* Assets.xcassets */,
+				5E18374F29D25E2D00B94E8B /* Model */,
+				5E18375029D25E4A00B94E8B /* View */,
+				5E92A45E29CA754900BADC38 /* Controller */,
+				5E18374C29D25DDC00B94E8B /* Helper */,
 				5ED04B8B2996CBD500457D1F /* LaunchScreen.storyboard */,
 				5ED04B8E2996CBD500457D1F /* Info.plist */,
 				5ED04B862996CBCD00457D1F /* MapDiary.xcdatamodeld */,
-				5EB3C8C929A45834006425AA /* RecordCell.swift */,
-				5E7C607C29AFEA40008AA49B /* SelectedImageCell.swift */,
-				5E92A45E29CA754900BADC38 /* View */,
-				5E7BB83829B5610F00B1006F /* DetailsImageCell.swift */,
-				5E9E560329B81F860094BDD7 /* SwipeTableVC.swift */,
-				5E9E560529B82D9F0094BDD7 /* ModelView.swift */,
 			);
 			path = MapDiary;
 			sourceTree = "<group>";
@@ -257,16 +277,17 @@
 			files = (
 				5ED04B882996CBCD00457D1F /* MapDiary.xcdatamodeld in Sources */,
 				5E9FB2F129BD673D00AE4450 /* MapVC.swift in Sources */,
+				5E18374529D25CDB00B94E8B /* UIColorExtension.swift in Sources */,
 				5ED04B822996CBCD00457D1F /* TableViewController.swift in Sources */,
-				5E9E560429B81F860094BDD7 /* SwipeTableVC.swift in Sources */,
 				5E7BB83929B5610F00B1006F /* DetailsImageCell.swift in Sources */,
-				5E92A46029CA759E00BADC38 /* ColorHelper.swift in Sources */,
 				5E116E1F29AD7212008119D0 /* RegisterEditVC.swift in Sources */,
 				5E9E560629B82D9F0094BDD7 /* ModelView.swift in Sources */,
+				5E18374729D25D3000B94E8B /* UIImageExtension.swift in Sources */,
 				5ED04B7E2996CBCD00457D1F /* AppDelegate.swift in Sources */,
 				5ED04B802996CBCD00457D1F /* SceneDelegate.swift in Sources */,
+				5E18374B29D25DB000B94E8B /* CGImageExtension.swift in Sources */,
 				5E7BB83729B54A5600B1006F /* DetailVC.swift in Sources */,
-				5EA4B59129C68C3900B61302 /* Helper.swift in Sources */,
+				5E18374929D25D6A00B94E8B /* URLExtension.swift in Sources */,
 				5E7C607D29AFEA41008AA49B /* SelectedImageCell.swift in Sources */,
 				5EB3C8CA29A45834006425AA /* RecordCell.swift in Sources */,
 			);
@@ -415,13 +436,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 83838Q8A6R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MapDiary/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Memento Notes";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow the app to access the camera ?";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow the app to utilize your location ?";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow the app to access the photo library ?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -429,7 +455,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = canberk.yilmaz439.MapDiary;
+				PRODUCT_BUNDLE_IDENTIFIER = canberk.yilmaz439.MementoNotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -444,13 +470,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 83838Q8A6R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MapDiary/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Memento Notes";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow the app to access the camera ?";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow the app to utilize your location ?";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow the app to access the photo library ?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -458,7 +489,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = canberk.yilmaz439.MapDiary;
+				PRODUCT_BUNDLE_IDENTIFIER = canberk.yilmaz439.MementoNotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
