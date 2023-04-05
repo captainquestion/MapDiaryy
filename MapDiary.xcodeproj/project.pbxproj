@@ -106,9 +106,6 @@
 		5E18375029D25E4A00B94E8B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				5EB3C8C929A45834006425AA /* RecordCell.swift */,
-				5E7C607C29AFEA40008AA49B /* SelectedImageCell.swift */,
-				5E7BB83829B5610F00B1006F /* DetailsImageCell.swift */,
 				5ED04B832996CBCD00457D1F /* Main.storyboard */,
 			);
 			path = View;
@@ -117,6 +114,7 @@
 		5E92A45E29CA754900BADC38 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				5EF27F1529DD223600D6F23E /* Cells */,
 				5ED04B812996CBCD00457D1F /* TableViewController.swift */,
 				5E116E1E29AD7212008119D0 /* RegisterEditVC.swift */,
 				5E7BB83629B54A5600B1006F /* DetailVC.swift */,
@@ -158,6 +156,16 @@
 				5ED04B862996CBCD00457D1F /* MapDiary.xcdatamodeld */,
 			);
 			path = MapDiary;
+			sourceTree = "<group>";
+		};
+		5EF27F1529DD223600D6F23E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				5EB3C8C929A45834006425AA /* RecordCell.swift */,
+				5E7C607C29AFEA40008AA49B /* SelectedImageCell.swift */,
+				5E7BB83829B5610F00B1006F /* DetailsImageCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -436,14 +444,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 83838Q8A6R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MapDiary/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Memento Notes";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Allow the app to access the camera ?";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow the app to utilize your location ?";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow the app to access the photo library ?";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Memento Notes needs access to your camera to take a photo to save it.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Memento Notes needs your location to save your location.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Memento Notes needs access to your photo library to save a photo.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -470,14 +478,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 83838Q8A6R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MapDiary/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Memento Notes";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Allow the app to access the camera ?";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow the app to utilize your location ?";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow the app to access the photo library ?";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Memento Notes needs access to your camera to take a photo to save it.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Memento Notes needs your location to save your location.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Memento Notes needs access to your photo library to save a photo.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

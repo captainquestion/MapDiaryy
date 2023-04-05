@@ -83,8 +83,7 @@ class MapVC: UIViewController, MKMapViewDelegate {
     
 
     func openMapButtonAction(latitude: Double, longitude: Double) {
-            print(latitude)
-            print(longitude)
+        
 
             let appleURL = "http://maps.apple.com/?daddr=\(latitude),\(longitude)"
             let googleURL = "comgooglemaps://?daddr=\(latitude),\(longitude)&directionsmode=driving"
