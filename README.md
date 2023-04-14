@@ -1,8 +1,6 @@
 
 # MementoNotes
-2
-​
-3
+
 Open source code for my app on the App Store called Memento Notes, an app for taking notes while capturing the moment as well as saving your location locally via CoreData.
 
 Whether you are a student who wants to easily classify your lecture notes while saving the date or a traveler who wants to save the newly discovered locations while capturing the moments, Memento Notes is a must-have app!
@@ -23,7 +21,7 @@ Whether you are a student who wants to easily classify your lecture notes while 
 
 **Screenshots**
 
-<img src="screenshots/s1.png" width="180"> <img src="screenshots/s2.png" width="180"> <img src="screenshots/s3.png" width="180"> <img src="screenshots/s4.png" width="180"> <img src="screenshots/s6.png" width="180">
+<img src="screenshots/s1.png" width="180"> <img src="screenshots/s2.png" width="180"> <img src="screenshots/s3.png" width="180"> <img src="screenshots/s4.png" width="180"> <img src="screenshots/s5.png" width="180"> <img src="screenshots/s6.png" width="180">
 
 **Links:**
 
